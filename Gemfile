@@ -6,5 +6,7 @@ gem 'mysql2'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 
-gem 'shotgun'
-gem 'tux'
+group :development do
+	gem 'shotgun'
+	gem 'tux'
+end
