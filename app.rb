@@ -8,6 +8,9 @@ set :database, "mysql2://root@localhost/coderprep"
 
 class User < ActiveRecord::Base
 	attr_accessible :id, :username, :pass_salt, :pass_hash
+end
+
+helpers do
 	def exists(username)
 		if User.where(:username => username).first
 			return true
@@ -15,9 +18,7 @@ class User < ActiveRecord::Base
 			return false
 		end
 	end
-end
 
-helpers do
 	def login?
 		if session[:username].nil?
 			return false
@@ -48,14 +49,19 @@ post '/signup' do
 	redirect '/'
 end
 
+get '/login' do
+	erb :login
+end
+
 post '/login' do
-	if User.exists(params[:username])
-		user = User.where(:username => params[:username])
+	if exists(params[:username])
+		user = User.where(:username => params[:username]).first
 		if user.pass_hash == BCrypt::Engine.hash_secret(params[:password], user.pass_salt)
 			session[:username] = params[:username]
 			redirect '/'
 		end
 	end
+	erb :error
 end
 
 get '/logout' do
