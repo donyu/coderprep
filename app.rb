@@ -41,12 +41,16 @@ get '/signup' do
 end
 
 post '/signup' do
-	new_id = User.all.last.id + 1
-	salt = BCrypt::Engine.generate_salt
-	hash = BCrypt::Engine.hash_secret(params[:password], salt)
-	User.create(id: new_id, username: params[:username], pass_salt: salt, pass_hash: hash)
-	session[:username] = params[:username]
-	redirect '/'
+	if not exists(params[:username])
+		new_id = User.all.last.id + 1
+		salt = BCrypt::Engine.generate_salt
+		hash = BCrypt::Engine.hash_secret(params[:password], salt)
+		User.create(id: new_id, username: params[:username], pass_salt: salt, pass_hash: hash)
+		session[:username] = params[:username]
+		redirect '/'
+	else
+		"this username exists already. go away"
+	end
 end
 
 get '/login' do
