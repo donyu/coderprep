@@ -4,7 +4,7 @@ require 'bcrypt'
 require 'yaml'
 
 enable :sessions
-set :database, "mysql2://root@localhost/coderprep"
+set :database, "mysql2://b07682ab501ad3:11c2380c@us-cdbr-east-03.cleardb.com/heroku_0a79ab0c589a98e?reconnect=true"
 
 class User < ActiveRecord::Base
 	attr_accessible :id, :username, :pass_salt, :pass_hash
