@@ -1,10 +1,13 @@
+require 'rubygems'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'bcrypt'
 require 'yaml'
 
-enable :sessions
-set :database, "mysql2://b07682ab501ad3:11c2380c@us-cdbr-east-03.cleardb.com/heroku_0a79ab0c589a98e?reconnect=true"
+configure do
+  enable :sessions
+  set :database, "mysql2://b07682ab501ad3:11c2380c@us-cdbr-east-03.cleardb.com/heroku_0a79ab0c589a98e?reconnect=true"
+end
 
 class User < ActiveRecord::Base
 	attr_accessible :id, :username, :pass_salt, :pass_hash
@@ -36,10 +39,6 @@ get '/' do
 	erb :index
 end
 
-get '/signup' do
-	erb :signup
-end
-
 post '/signup' do
 	if not exists(params[:username])
 		new_id = User.all.last.id + 1
@@ -51,10 +50,6 @@ post '/signup' do
 	else
 		"this username exists already. go away"
 	end
-end
-
-get '/login' do
-	erb :login
 end
 
 post '/login' do
