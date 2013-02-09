@@ -47,7 +47,9 @@
 	// Initialize session, set up event listeners, and connect
 	var session = TB.initSession(sessionId);
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
+	session.addEventListener('streamCreated', streamCreatedHandler);
 	session.connect(apiKey, token);
+	var publisher;
 	
 	function sessionConnectedHandler(event) {
     // Put my webcam in a div
