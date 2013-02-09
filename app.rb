@@ -3,6 +3,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'bcrypt'
 require 'yaml'
+require 'base64'
 
 configure do
   enable :sessions
@@ -14,9 +15,21 @@ class User < ActiveRecord::Base
 	attr_accessible :id, :username, :pass_salt, :pass_hash
 end
 
+class Lesson < ActiveRecord::Base
+	attr_accessible :id, :u_id, :name, :progress
+end
+
 helpers do
 	def exists(username)
 		if User.where(:username => username).first
+			return true
+		else
+			return false
+		end
+	end
+
+	def lesson_done(u_id)
+		if Lesson.where(:u_id => u_id).first
 			return true
 		else
 			return false
@@ -40,8 +53,13 @@ get '/' do
 	erb :index
 end
 
-get '/interview' do
+get '/interview/:code' do
+	@code = params[:code]
   erb :interview
+end
+
+get '/interview' do
+	redirect '/interview/' + Base64.encode64(rand(1000000).to_s).chomp("=\n")
 end
 
 get '/lessons' do
@@ -99,6 +117,16 @@ get '/dashboard' do
 	end
 	@username = session[:username]
 	erb :dashboard
+end
+
+get '/practice' do
+	if !session[:username] then
+		session[:previous_url] = request.path
+		@error = 'Sorry but you must log in first'
+		halt erb(:index)
+	end
+	@username = session[:username]
+	erb :practice
 end
 
 get '/logout' do
