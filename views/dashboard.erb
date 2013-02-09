@@ -14,6 +14,7 @@
           <li><a href="/contact">Contact</a></li>
         </ul>
         <ul class="nav pull-right">
+        	<%if !session[:username] %>
         	<li>
         		<a role="button" data-toggle="modal" href="#signupModal">Sign Up</a>
         		<div id="signupModal" class="modal hide fade" tabindex="-1">
@@ -72,6 +73,18 @@
 							</form>
 						</div>
         	</li>
+        	<% else %>
+        	<li class="dropdown">
+        		<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+        		<%= session[:username] %> <b class="caret"></b></a>
+        		<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+        			<ul>
+        				<li><a href='/dashboard'>Dashboard</a></li>
+        				<li><a href='/logout'>Logout</a></li>
+        			</ul>
+        		</div>
+        	</li>
+        	<% end %>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -86,7 +99,7 @@
 	  <h1>The best way to prepare for your coding interview</h1>
 	  <img src="images/programming.png" height="260" width="260" align="right">        
 	  <hr color="#94D1CA">
-	  <p>Coderprep is the best way for coders to prep each other for interviews. Review common topics seen on coding interviews, track your progress on weak areas, and set up mock interviews with other coders. Take a demo mock interview here, explore our lessons, and sign up to track your progress.
+	  <p><%=username%>
 	  </p>
     <br/>
     <a class="btn btn-primary btn-large" href="/interview"> Prepare Now &raquo;</a>

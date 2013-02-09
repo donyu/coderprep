@@ -82,20 +82,49 @@
 <br/>
 <br/>
 <div class="container">
-	<div class="hero-unit">
-	  <h1>The best way to prepare for your coding interview</h1>
-	  <img src="images/programming.png" height="260" width="260" align="right">        
-	  <hr color="#94D1CA">
-	  <p>Coderprep is the best way for coders to prep each other for interviews. Review common topics seen on coding interviews, track your progress on weak areas, and set up mock interviews with other coders. Take a demo mock interview here, explore our lessons, and sign up to track your progress.
-	  </p>
-    <br/>
-    <a class="btn btn-primary btn-large" href="/interview"> Prepare Now &raquo;</a>
-    <br/>
-    <br/>
-	</div>
+	<div class="row">
+		<div class="span12">
+			<h2>Mock Interview</h2>
+	  	<hr>
+	  	<div class="clearfix"></div>
+	  	<p><b>Question</b> : Given a list of strings, output the anagrams in groups. How would you do this without first sorting each string?</p>
+	  	<div id="editor" style="height: 600px; width: 600px; float: left; position: relative;"></div>
 
+	  	<p><b>Interviewer</b></p>
+	  	<div class="span4" id="myPublisherDiv"></div>
+	  	<p><b>Chat Screen</b></p>
+	  </div>
+	</div>
   <hr>
 	<footer>
 	  <p>Developed by Don Yu & Jon Jia at Columbia's 2013 DevFest</p>
 	</footer>
 </div>
+<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+</script>
+<script src='http://static.opentok.com/v0.91/js/TB.min.js'></script>
+<script>
+	// Initialize API key, session, and token...
+	// Think of a session as a room, and a token as the key to get in to the room
+	// Sessions and tokens are generated on your server and passed down to the client
+	var apiKey = "22854812";
+	var sessionId = "1_MX4yMjg1NDgxMn4xMjcuMC4wLjF-U2F0IEZlYiAwOSAwMDo1NDoyNiBQU1QgMjAxM34wLjYyNzU5NTI1fg";
+	var token = "T1==cGFydG5lcl9pZD0yMjg1NDgxMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1lYTZiZGY4Y2RjODYxYjkwNGI1NDg1NjljYzIyMmQ4Mjc4MDZlZTkzOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9MV9NWDR5TWpnMU5EZ3hNbjR4TWpjdU1DNHdMakYtVTJGMElFWmxZaUF3T1NBd01EbzFORG95TmlCUVUxUWdNakF4TTM0d0xqWXlOelU1TlRJMWZnJmNyZWF0ZV90aW1lPTEzNjA0MDAxMDAmbm9uY2U9MC4zMTQ3NDUxNzgyNzc5ODY1NCZleHBpcmVfdGltZT0xMzYwNDg2NTAwJmNvbm5lY3Rpb25fZGF0YT0=";
+
+	// Initialize session, set up event listeners, and connect
+	var session = TB.initSession(sessionId);
+	session.addEventListener('sessionConnected', sessionConnectedHandler);
+	session.connect(apiKey, token);
+	
+	function sessionConnectedHandler(event) {
+    // Put my webcam in a div
+    var publishProps = {height:240, width:320};
+    publisher = TB.initPublisher(apiKey, 'myPublisherDiv', publishProps);
+    // Send my stream to the session
+    session.publish(publisher);
+	}
+</script>

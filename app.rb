@@ -7,6 +7,7 @@ require 'yaml'
 configure do
   enable :sessions
   set :database, "mysql2://b07682ab501ad3:11c2380c@us-cdbr-east-03.cleardb.com/heroku_0a79ab0c589a98e?reconnect=true"
+  set :public_folder, Proc.new { File.join(root, "public") }
 end
 
 class User < ActiveRecord::Base
@@ -39,6 +40,33 @@ get '/' do
 	erb :index
 end
 
+get '/interview' do
+  erb :interview
+end
+
+get '/lessons' do
+  erb :lessons
+end
+
+get '/lessons/:lesson' do
+	lesson = params[:lesson]
+	if lesson == "lists"
+		erb :lists
+	elsif lesson == "stacks"
+		erb :stacks
+	elsif lesson == "trees"
+		erb :trees
+	end
+end
+
+get '/contact' do
+  erb :contact
+end
+
+not_found do
+  erb :error
+end
+
 post '/signup' do
 	if not exists(params[:username])
 		new_id = User.all.last.id + 1
@@ -57,10 +85,20 @@ post '/login' do
 		user = User.where(:username => params[:username]).first
 		if user.pass_hash == BCrypt::Engine.hash_secret(params[:password], user.pass_salt)
 			session[:username] = params[:username]
-			redirect '/'
+			redirect '/dashboard'
 		end
 	end
 	erb :error
+end
+
+get '/dashboard' do
+	if !session[:username] then
+		session[:previous_url] = request.path
+		@error = 'Sorry but you must log in first'
+		halt erb(:index)
+	end
+	@username = session[:username]
+	erb :dashboard
 end
 
 get '/logout' do

@@ -9,9 +9,9 @@
       <a class="brand" href="/">Coderprep</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/lessons">Lessons</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li class="active"><a href="/contact">Contact</a></li>
         </ul>
         <ul class="nav pull-right">
         	<li>
@@ -83,19 +83,29 @@
 <br/>
 <div class="container">
 	<div class="hero-unit">
-	  <h1>The best way to prepare for your coding interview</h1>
-	  <img src="images/programming.png" height="260" width="260" align="right">        
-	  <hr color="#94D1CA">
-	  <p>Coderprep is the best way for coders to prep each other for interviews. Review common topics seen on coding interviews, track your progress on weak areas, and set up mock interviews with other coders. Take a demo mock interview here, explore our lessons, and sign up to track your progress.
-	  </p>
-    <br/>
-    <a class="btn btn-primary btn-large" href="/interview"> Prepare Now &raquo;</a>
-    <br/>
-    <br/>
+	  <div class="span10">
+	      <h1>Questions or concerns?</h1>
+	      <br/>
+	        <form action="/email" method="post">
+	          <fieldset>
+	            <label for="name">Name</label>
+	            <input type="text" name="name" id="name" placeholder="Enter your name" />
+	            
+	            <label for="email">Email</label>
+	            <input type="email" name="email" id="email" placeholder="Enter your email address" />
+	            
+	            <label for="message">Message</label>
+	            <textarea id="message" name="message" placeholder="Type your message here"></textarea>
+	            <br>
+	            <input id="submit" name="submit" type="submit" value="Send message" class="btn primary large" background-color="white"/>
+	          </fieldset>
+	        </form>
+	    </div>
+	  <p>*Return messages may take up to a day to process.</p>
 	</div>
 
   <hr>
 	<footer>
 	  <p>Developed by Don Yu & Jon Jia at Columbia's 2013 DevFest</p>
 	</footer>
-</div>
+</div
