@@ -17,6 +17,9 @@
  					<button type="submit" class="btn">Search</button>
 				</form>
 
+      <div id="yelp_results" class="minions_body container">
+
+      </div>
     </div>
   </div>
   <hr>
@@ -24,3 +27,16 @@
     <p>Developed by Don Yu & Jon Jia at Columbia's 2013 DevFest</p>
   </footer>
 </div>
+
+<script>
+  function search() {
+    var search_string = $('#query_job').val();
+    var results = "<hr><br><div id=\"row_1\" class=\"row\"><div class=\"row\"><div class=\"span8\"><h4><strong><a href=\"#\">sbchou</a></strong></h4></div></div><div class=\"row\"><div class=\"span2\"><a href=\"#\" class=\"thumbnail\"><img src=\"/images/sophie.jpg\" alt=\"\"></a></div><div class=\"span6\"><p>Hi! I am an experienced hacker girl at Columbia University working at parse.ly right now.</p><p><a class=\"btn\" href=\"/interview/Me123Th\">Request Mock Interview</a></p></div></div></div>";
+    
+    if (search_string == "knewton") {
+          $("#yelp_results").html(results);
+    }
+
+    return false;
+  }
+</script>
