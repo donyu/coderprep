@@ -133,3 +133,7 @@ get '/logout' do
 	session[:username] = nil
 	redirect '/'
 end
+
+get '/pricing' do
+	erb :pricing
+end
